@@ -1,4 +1,4 @@
-package com.chattriggers.ctjs.minecraft.objects.keybind
+package com.chattriggers.ctjs.minecraft.objects.keybinds
 
 import com.chattriggers.ctjs.minecraft.wrappers.World
 import net.minecraftforge.common.MinecraftForge

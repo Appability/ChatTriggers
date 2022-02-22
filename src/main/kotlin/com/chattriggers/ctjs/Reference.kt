@@ -6,7 +6,7 @@ import com.chattriggers.ctjs.minecraft.libs.ChatLib
 import com.chattriggers.ctjs.minecraft.libs.renderer.Renderer
 import com.chattriggers.ctjs.minecraft.listeners.MouseListener
 import com.chattriggers.ctjs.minecraft.objects.display.DisplayHandler
-import com.chattriggers.ctjs.minecraft.objects.keybind.KeyBindHandler
+import com.chattriggers.ctjs.minecraft.objects.keybinds.KeyBindHandler
 import com.chattriggers.ctjs.minecraft.objects.message.Message
 import com.chattriggers.ctjs.minecraft.wrappers.Client
 import com.chattriggers.ctjs.minecraft.wrappers.World
