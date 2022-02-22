@@ -1,5 +1,6 @@
 package com.chattriggers.ctjs.engine.langs.js
 
+import com.chattriggers.ctjs.engine.EngineInfo
 import com.chattriggers.ctjs.engine.ILoader
 import com.chattriggers.ctjs.engine.langs.Lang
 import com.chattriggers.ctjs.engine.module.Module
@@ -49,7 +50,9 @@ object JSLoader : ILoader {
     )
 
     override fun exec(type: TriggerType, args: Array<out Any?>) {
-        triggers[type]?.forEach { it.trigger(args) }
+        EngineInfo.withLoader(this) {
+            triggers[type]?.forEach { it.trigger(args) }
+        }
     }
 
     override fun addTrigger(trigger: OnTrigger) {
@@ -200,19 +203,21 @@ object JSLoader : ILoader {
             callsInPlace(block, InvocationKind.EXACTLY_ONCE)
         }
 
-        val missingContext = Context.getCurrentContext() == null
-        if (missingContext) {
-            try {
-                JSContextFactory.enterContext(context)
-            } catch (e: Throwable) {
-                JSContextFactory.enterContext()
+        return EngineInfo.withLoader(this) {
+            val missingContext = Context.getCurrentContext() == null
+            if (missingContext) {
+                try {
+                    JSContextFactory.enterContext(context)
+                } catch (e: Throwable) {
+                    JSContextFactory.enterContext()
+                }
             }
-        }
 
-        try {
-            return block()
-        } finally {
-            if (missingContext) Context.exit()
+            try {
+                return block()
+            } finally {
+                if (missingContext) Context.exit()
+            }
         }
     }
 
