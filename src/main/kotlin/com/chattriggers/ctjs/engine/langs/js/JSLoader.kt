@@ -214,7 +214,7 @@ object JSLoader : ILoader {
             }
 
             try {
-                return block()
+                block()
             } finally {
                 if (missingContext) Context.exit()
             }

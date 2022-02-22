@@ -24,11 +24,11 @@ global.Book = Java.type("com.chattriggers.ctjs.minecraft.objects.Book");
 global.KeyBind = Java.type("com.chattriggers.ctjs.minecraft.objects.keybinds.KeyBind");
 global.Sound = Java.type("com.chattriggers.ctjs.minecraft.objects.Sound");
 
-global.Display = Java.type("com.chattriggers.ctjs.engine.langs.js.JSDisplay");
-global.DisplayLine = Java.type("com.chattriggers.ctjs.engine.langs.js.JSDisplayLine");
+global.Display = Java.type("com.chattriggers.ctjs.minecraft.objects.display.Display");
+global.DisplayLine = Java.type("com.chattriggers.ctjs.minecraft.objects.display.DisplayLine");
 global.DisplayHandler = Java.type("com.chattriggers.ctjs.minecraft.objects.display.DisplayHandler");
 
-global.Gui = Java.type("com.chattriggers.ctjs.engine.langs.js.JSGui");
+global.Gui = Java.type("com.chattriggers.ctjs.minecraft.objects.gui.Gui");
 global.GuiHandler = Java.type("com.chattriggers.ctjs.minecraft.objects.gui.GuiHandler").INSTANCE;
 
 global.Message = Java.type("com.chattriggers.ctjs.minecraft.objects.message.Message");
@@ -72,7 +72,7 @@ global.NBTTagCompound = Java.type("com.chattriggers.ctjs.minecraft.wrappers.obje
 global.NBTTagList = Java.type("com.chattriggers.ctjs.minecraft.wrappers.objects.inventory.nbt.NBTTagList");
 
 // Triggers
-global.TriggerRegister = Java.type("com.chattriggers.ctjs.engine.langs.js.JSRegister").INSTANCE;
+global.TriggerRegister = Java.type("com.chattriggers.ctjs.engine.Register").INSTANCE;
 
 global.OnChatTrigger = Java.type("com.chattriggers.ctjs.triggers.OnChatTrigger");
 global.OnCommandTrigger = Java.type("com.chattriggers.ctjs.triggers.OnCommandTrigger");

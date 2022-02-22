@@ -11,7 +11,7 @@ object EngineInfo {
         override fun initialValue() = ArrayDeque<ILoader>()
     }
 
-    fun getLoader() = loaderStack.get().first
+    fun getLoader(): ILoader = loaderStack.get().first
 
     @OptIn(ExperimentalContracts::class)
     fun <T> withLoader(loader: ILoader, block: () -> T): T {

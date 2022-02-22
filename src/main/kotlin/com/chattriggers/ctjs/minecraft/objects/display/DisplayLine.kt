@@ -1,6 +1,6 @@
 package com.chattriggers.ctjs.minecraft.objects.display
 
-import com.chattriggers.ctjs.engine.ILoader
+import com.chattriggers.ctjs.engine.EngineInfo
 import com.chattriggers.ctjs.minecraft.libs.renderer.Renderer
 import com.chattriggers.ctjs.minecraft.libs.renderer.Text
 import com.chattriggers.ctjs.minecraft.listeners.MouseListener
@@ -9,12 +9,10 @@ import com.chattriggers.ctjs.triggers.OnRegularTrigger
 import com.chattriggers.ctjs.triggers.OnTrigger
 import com.chattriggers.ctjs.triggers.TriggerType
 import com.chattriggers.ctjs.utils.kotlin.External
-import com.chattriggers.ctjs.utils.kotlin.NotAbstract
 import org.mozilla.javascript.NativeObject
 
 @External
-@NotAbstract
-abstract class DisplayLine {
+class DisplayLine {
     private lateinit var text: Text
 
     private var textWidth = 0f
@@ -111,17 +109,17 @@ abstract class DisplayLine {
     }
 
     fun registerClicked(method: Any) = run {
-        onClicked = OnRegularTrigger(method, TriggerType.Other, getLoader())
+        onClicked = OnRegularTrigger(method, TriggerType.Other, EngineInfo.getLoader())
         onClicked
     }
 
     fun registerHovered(method: Any) = run {
-        onHovered = OnRegularTrigger(method, TriggerType.Other, getLoader())
+        onHovered = OnRegularTrigger(method, TriggerType.Other, EngineInfo.getLoader())
         onHovered
     }
 
     fun registerDragged(method: Any) = run {
-        onDragged = OnRegularTrigger(method, TriggerType.Other, getLoader())
+        onDragged = OnRegularTrigger(method, TriggerType.Other, EngineInfo.getLoader())
         onDragged
     }
 
@@ -178,8 +176,6 @@ abstract class DisplayLine {
             )
         }
     }
-
-    internal abstract fun getLoader(): ILoader
 
     override fun toString() =
         "DisplayLine{" +
