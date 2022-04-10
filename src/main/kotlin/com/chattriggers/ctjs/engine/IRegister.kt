@@ -868,19 +868,6 @@ interface IRegister {
     }
 
     /**
-     * Registers a new trigger that runs before a slot is drawn in a container
-     * This is useful for hiding "background" items in containers used as GUIs.
-     *
-     * Passes through three arguments:
-     * - The [Slot] being drawn
-     * - The MC GUIScreen that is being drawn
-     * - The event, which can be cancelled
-     */
-
-    fun registerDrawSlot(method: Any): OnRegularTrigger {
-        return OnRegularTrigger(method, TriggerType.DrawSlot, getImplementationLoader())
-    }
-    /**
      * Registers a new trigger that runs before the gui background is drawn
      * This is useful for drawing custom backgrounds.
      *
@@ -1241,6 +1228,20 @@ interface IRegister {
      */
     fun registerRenderItemStack(method: Any): OnRegularTrigger {
         return OnRegularTrigger(method, TriggerType.RenderItemStack, getImplementationLoader())
+    }
+
+    /**
+     * Registers a new trigger that runs before a slot is drawn in a container
+     * This is useful for hiding "background" items in containers used as GUIs.
+     *
+     * Passes through three arguments:
+     * - The [Slot] being drawn
+     * - The MC GUIScreen that is being drawn
+     * - The event, which can be cancelled
+     */
+
+    fun registerRenderSlot(method: Any): OnRegularTrigger {
+        return OnRegularTrigger(method, TriggerType.RenderSlot, getImplementationLoader())
     }
 
     /**
