@@ -1212,6 +1212,24 @@ interface IRegister {
     }
 
     /**
+     * Registers a new trigger that runs when an item stack in the cursor is being drawn.
+     * Use DrawSlot for item stacks being drawn in slots in a GUI instead.
+     *
+     * Passes through six arguments:
+     * - The Item being rendered
+     * - The x position, relative to the GuiContainer being rendered
+     * - The y position, relative to the GuiContainer being rendered
+     * - The GuiContainer
+     * - The event, which can be cancelled
+     *
+     * @param method The method to call when the event is fired
+     * @return The trigger for additional modification
+     */
+    fun registerRenderItemStack(method: Any): OnRegularTrigger {
+        return OnRegularTrigger(method, TriggerType.RenderItemStack, getImplementationLoader())
+    }
+
+    /**
      * Registers a new trigger that runs whenever a particle is spawned
      *
      * Passes through three arguments:

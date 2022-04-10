@@ -62,6 +62,7 @@ enum class TriggerType {
     RenderSlotHighlight,
     PostRenderEntity,
     RenderTileEntity,
+    RenderItemStack,
     PostRenderTileEntity,
 
     // world

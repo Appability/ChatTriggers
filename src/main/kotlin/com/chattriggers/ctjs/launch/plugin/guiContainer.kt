@@ -5,15 +5,49 @@ import com.chattriggers.ctjs.triggers.TriggerType
 import dev.falsehonesty.asmhelper.dsl.At
 import dev.falsehonesty.asmhelper.dsl.InjectionPoint
 import dev.falsehonesty.asmhelper.dsl.code.CodeBlock.Companion.asm
+import dev.falsehonesty.asmhelper.dsl.code.CodeBlock.Companion.methodReturn
 import dev.falsehonesty.asmhelper.dsl.inject
 import dev.falsehonesty.asmhelper.dsl.instructions.Descriptor
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.inventory.Slot
+import net.minecraft.item.ItemStack
 
 fun injectGuiContainer() {
     injectDrawForeground()
     injectDrawSlotHighlight()
+    injectDrawItemStack()
+}
+
+fun injectDrawItemStack()  = inject {
+    className = "net/minecraft/client/gui/inventory/GuiContainer"
+    methodName = "drawItemStack"
+    methodDesc = "(Lnet/minecraft/item/ItemStack;IILjava/lang/String;)V"
+
+    at = At(InjectionPoint.HEAD)
+
+    methodMaps = mapOf(
+        "func_146982_a" to "drawItemStack",
+    )
+
+    codeBlock {
+        val local0 = shadowLocal<GuiContainer>()
+        val local1 = shadowLocal<ItemStack>()
+        val local2 = shadowLocal<Int>()
+        val local3 = shadowLocal<Int>()
+
+        code {
+            val event = CancellableEvent()
+
+            GlStateManager.pushMatrix()
+            TriggerType.RenderItemStack.triggerAll(local1, local2, local3, local0, event)
+            GlStateManager.popMatrix()
+
+            if (event.isCancelled()) {
+                methodReturn()
+            }
+        }
+    }
 }
 
 fun injectDrawForeground() = inject {
