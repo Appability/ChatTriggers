@@ -1,7 +1,10 @@
 package com.chattriggers.ctjs.launch.plugin
 
 import com.chattriggers.ctjs.minecraft.listeners.CancellableEvent
+import com.chattriggers.ctjs.minecraft.wrappers.objects.inventory.Item
+import com.chattriggers.ctjs.minecraft.wrappers.objects.inventory.Slot
 import com.chattriggers.ctjs.triggers.TriggerType
+import com.chattriggers.ctjs.utils.kotlin.MCSlot
 import dev.falsehonesty.asmhelper.dsl.At
 import dev.falsehonesty.asmhelper.dsl.InjectionPoint
 import dev.falsehonesty.asmhelper.dsl.code.CodeBlock.Companion.asm
@@ -10,13 +13,45 @@ import dev.falsehonesty.asmhelper.dsl.inject
 import dev.falsehonesty.asmhelper.dsl.instructions.Descriptor
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.renderer.GlStateManager
-import net.minecraft.inventory.Slot
 import net.minecraft.item.ItemStack
 
 fun injectGuiContainer() {
+    injectDrawSlot()
+    injectDrawItemStack()
     injectDrawForeground()
     injectDrawSlotHighlight()
-    injectDrawItemStack()
+}
+
+fun injectDrawSlot() = inject {
+    className = "net/minecraft/client/gui/inventory/GuiContainer"
+    methodName = "drawSlot"
+    methodDesc = "(Lnet/minecraft/inventory/Slot;)V"
+
+    at = At(InjectionPoint.HEAD)
+
+    methodMaps = mapOf(
+        "func_146977_a" to "drawSlot",
+    )
+
+    fieldMaps = mapOf("theSlot" to "field_147006_u")
+
+    codeBlock {
+
+        val local0 = shadowLocal<GuiContainer>()
+        val local1 = shadowLocal<MCSlot>()
+
+        code {
+            val event = CancellableEvent()
+
+            GlStateManager.pushMatrix()
+            TriggerType.RenderSlot.triggerAll(Slot(local1), local0, event)
+            GlStateManager.popMatrix()
+
+            if (event.isCancelled()) {
+                methodReturn()
+            }
+        }
+    }
 }
 
 fun injectDrawItemStack()  = inject {
@@ -40,7 +75,7 @@ fun injectDrawItemStack()  = inject {
             val event = CancellableEvent()
 
             GlStateManager.pushMatrix()
-            TriggerType.RenderItemStack.triggerAll(local1, local2, local3, local0, event)
+            TriggerType.RenderItemStack.triggerAll(Item(local1), local2, local3, local0, event)
             GlStateManager.popMatrix()
 
             if (event.isCancelled()) {
@@ -74,7 +109,7 @@ fun injectDrawForeground() = inject {
     fieldMaps = mapOf("theSlot" to "field_147006_u")
 
     codeBlock {
-        val theSlot = shadowField<Slot?>()
+        val theSlot = shadowField<MCSlot?>()
 
         val local0 = shadowLocal<GuiContainer>()
         val local1 = shadowLocal<Int>()
@@ -113,7 +148,7 @@ fun injectDrawSlotHighlight() = inject {
     fieldMaps = mapOf("theSlot" to "field_147006_u")
 
     codeBlock {
-        val theSlot = shadowField<Slot?>()
+        val theSlot = shadowField<MCSlot?>()
 
         val local0 = shadowLocal<GuiContainer>()
         val local1 = shadowLocal<Int>()
