@@ -46,6 +46,7 @@ enum class TriggerType {
     RenderDebug,
     RenderCrosshair,
     RenderHotbar,
+    RenderHotbarItem,
     RenderExperience,
     RenderArmor,
     RenderHealth,
