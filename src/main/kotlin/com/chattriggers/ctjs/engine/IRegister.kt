@@ -1233,11 +1233,10 @@ interface IRegister {
     /**
      * Registers a new trigger that runs when an item stack in the hotbar is being drawn.
      *
-     * Passes through five arguments:
-     * - The [Item] being rendered
+     * Passes through four arguments:
+     * - The index
      * - The x position, relative to the GuiContainer being rendered
      * - The y position, relative to the GuiContainer being rendered
-     * - The index
      * - The event, which can be cancelled
      *
      * @param method The method to call when the event is fired

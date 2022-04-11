@@ -48,10 +48,9 @@ fun injectRenderHotbarItem() = inject {
 
         code {
             val event = CancellableEvent()
-            val item = Player.getInventory()?.getStackInSlot(local1)
 
             GlStateManager.pushMatrix()
-            TriggerType.RenderHotbarItem.triggerAll(item, local2, local3, local1, event)
+            TriggerType.RenderHotbarItem.triggerAll(local1, local2, local3, event)
             GlStateManager.popMatrix()
 
             if (event.isCanceled())
