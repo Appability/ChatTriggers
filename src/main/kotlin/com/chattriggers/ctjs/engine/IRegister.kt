@@ -1193,6 +1193,55 @@ interface IRegister {
     }
 
     /**
+     * Registers a new trigger that runs before a slot is drawn in a container
+     * This is useful for hiding "background" items in containers used as GUIs.
+     *
+     * Passes through three arguments:
+     * - The [Slot] being drawn
+     * - The MC GUIScreen that is being drawn
+     * - The event, which can be cancelled
+     *
+     * @param method The method to call when the event is fired
+     * @return The trigger for additional modification
+     */
+    fun registerRenderSlot(method: Any): OnRegularTrigger {
+        return OnRegularTrigger(method, TriggerType.RenderSlot, getImplementationLoader())
+    }
+
+    /**
+     * Registers a new trigger that runs before an item is drawn into a GUI.
+     *
+     * Passes through four arguments:
+     * - The [Item]
+     * - The x position
+     * - The y position
+     * - The event, which can be cancelled.
+     *
+     * @param method The method to call when the event is fired
+     * @return The trigger for additional modification
+     */
+    fun registerRenderItemIntoGui(method: Any): OnRegularTrigger {
+        return OnRegularTrigger(method, TriggerType.RenderItemIntoGUI, getImplementationLoader())
+    }
+
+    /**
+     * Registers a new trigger that runs before item overlays (stack size and damage bar) are drawn into a GUI.
+     *
+     * Passes through four arguments:
+     * - The [Item]
+     * - The x position
+     * - The y position
+     * - The event, which can be cancelled.
+
+     *
+     * @param method The method to call when the event is fired
+     * @return The trigger for additional modification
+     */
+    fun registerRenderItemOverlayIntoGui(method: Any): OnRegularTrigger {
+        return OnRegularTrigger(method, TriggerType.RenderItemOverlayIntoGUI, getImplementationLoader())
+    }
+
+    /**
      * Registers a new trigger that runs before the hovered slot square is drawn.
      *
      * Passes through six arguments:
@@ -1210,54 +1259,6 @@ interface IRegister {
      */
     fun registerRenderSlotHighlight(method: Any): OnRegularTrigger {
         return OnRegularTrigger(method, TriggerType.RenderSlotHighlight, getImplementationLoader())
-    }
-
-    /**
-     * Registers a new trigger that runs when an item stack in the cursor is being drawn.
-     * Use DrawSlot for item stacks being drawn in slots in a GUI instead.
-     *
-     * Passes through five arguments:
-     * - The [Item] being rendered
-     * - The x position, relative to the GuiContainer being rendered
-     * - The y position, relative to the GuiContainer being rendered
-     * - The GuiContainer
-     * - The event, which can be cancelled
-     *
-     * @param method The method to call when the event is fired
-     * @return The trigger for additional modification
-     */
-    fun registerRenderItemStack(method: Any): OnRegularTrigger {
-        return OnRegularTrigger(method, TriggerType.RenderItemStack, getImplementationLoader())
-    }
-
-    /**
-     * Registers a new trigger that runs when an item stack in the hotbar is being drawn.
-     *
-     * Passes through four arguments:
-     * - The index
-     * - The x position, relative to the GuiContainer being rendered
-     * - The y position, relative to the GuiContainer being rendered
-     * - The event, which can be cancelled
-     *
-     * @param method The method to call when the event is fired
-     * @return The trigger for additional modification
-     */
-    fun registerRenderHotbarItem(method: Any): OnRegularTrigger {
-        return OnRegularTrigger(method, TriggerType.RenderHotbarItem, getImplementationLoader())
-    }
-
-    /**
-     * Registers a new trigger that runs before a slot is drawn in a container
-     * This is useful for hiding "background" items in containers used as GUIs.
-     *
-     * Passes through three arguments:
-     * - The [Slot] being drawn
-     * - The MC GUIScreen that is being drawn
-     * - The event, which can be cancelled
-     */
-
-    fun registerRenderSlot(method: Any): OnRegularTrigger {
-        return OnRegularTrigger(method, TriggerType.RenderSlot, getImplementationLoader())
     }
 
     /**

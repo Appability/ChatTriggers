@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.GlStateManager
 
 fun injectGuiIngame() {
     injectRenderScoreboard()
-    injectRenderHotbarItem()
 }
 
 fun injectRenderScoreboard() = inject {
@@ -26,32 +25,6 @@ fun injectRenderScoreboard() = inject {
         code {
             val event = CancellableEvent()
             TriggerType.RenderScoreboard.triggerAll(event)
-
-            if (event.isCanceled())
-                methodReturn()
-        }
-    }
-}
-
-fun injectRenderHotbarItem() = inject {
-    className = "net/minecraft/client/gui/GuiIngame"
-    methodName = "renderHotbarItem"
-    methodDesc = "(IIIFLnet/minecraft/entity/player/EntityPlayer;)V"
-    at = At(InjectionPoint.HEAD)
-
-    methodMaps = mapOf("func_175184_a" to "renderHotbarItem")
-
-    codeBlock {
-        val local1 = shadowLocal<Int>()
-        val local2 = shadowLocal<Int>()
-        val local3 = shadowLocal<Int>()
-
-        code {
-            val event = CancellableEvent()
-
-            GlStateManager.pushMatrix()
-            TriggerType.RenderHotbarItem.triggerAll(local1, local2, local3, event)
-            GlStateManager.popMatrix()
 
             if (event.isCanceled())
                 methodReturn()

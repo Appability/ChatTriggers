@@ -46,7 +46,6 @@ enum class TriggerType {
     RenderDebug,
     RenderCrosshair,
     RenderHotbar,
-    RenderHotbarItem,
     RenderExperience,
     RenderArmor,
     RenderHealth,
@@ -61,10 +60,11 @@ enum class TriggerType {
     RenderEntity,
     PostGuiRender,
     PreItemRender,
+    RenderItemIntoGUI,
+    RenderItemOverlayIntoGUI,
     RenderSlotHighlight,
     PostRenderEntity,
     RenderTileEntity,
-    RenderItemStack,
     PostRenderTileEntity,
 
     // world

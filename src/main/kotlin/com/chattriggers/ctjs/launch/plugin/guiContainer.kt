@@ -17,7 +17,6 @@ import net.minecraft.item.ItemStack
 
 fun injectGuiContainer() {
     injectDrawSlot()
-    injectDrawItemStack()
     injectDrawForeground()
     injectDrawSlotHighlight()
 }
@@ -45,37 +44,6 @@ fun injectDrawSlot() = inject {
 
             GlStateManager.pushMatrix()
             TriggerType.RenderSlot.triggerAll(Slot(local1), local0, event)
-            GlStateManager.popMatrix()
-
-            if (event.isCancelled()) {
-                methodReturn()
-            }
-        }
-    }
-}
-
-fun injectDrawItemStack()  = inject {
-    className = "net/minecraft/client/gui/inventory/GuiContainer"
-    methodName = "drawItemStack"
-    methodDesc = "(Lnet/minecraft/item/ItemStack;IILjava/lang/String;)V"
-
-    at = At(InjectionPoint.HEAD)
-
-    methodMaps = mapOf(
-        "func_146982_a" to "drawItemStack",
-    )
-
-    codeBlock {
-        val local0 = shadowLocal<GuiContainer>()
-        val local1 = shadowLocal<ItemStack>()
-        val local2 = shadowLocal<Int>()
-        val local3 = shadowLocal<Int>()
-
-        code {
-            val event = CancellableEvent()
-
-            GlStateManager.pushMatrix()
-            TriggerType.RenderItemStack.triggerAll(Item(local1), local2, local3, local0, event)
             GlStateManager.popMatrix()
 
             if (event.isCancelled()) {
