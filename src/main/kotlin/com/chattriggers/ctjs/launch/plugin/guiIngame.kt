@@ -13,6 +13,10 @@ fun injectGuiIngame() {
     injectRenderScoreboard()
 }
 
+fun injectGuiIngame() {
+    injectRenderScoreboard()
+}
+
 fun injectRenderScoreboard() = inject {
     className = "net/minecraft/client/gui/GuiIngame"
     methodName = "renderScoreboard"
@@ -26,7 +30,7 @@ fun injectRenderScoreboard() = inject {
             val event = CancellableEvent()
             TriggerType.RenderScoreboard.triggerAll(event)
 
-            if (event.isCanceled())
+            if (event.isCancelled())
                 methodReturn()
         }
     }
